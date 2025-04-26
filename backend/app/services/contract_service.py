@@ -8,40 +8,6 @@ import re
 import openai
 import json
 
-LLM_PARSE_PROMPT = '''
-You are a contract parser. Given the following contract text, extract a list of sections. Each section should be an object with:
-- id: a unique string (can be a UUID or hash)
-- type: 'heading', 'subheading', or 'clause'
-- content: the text of the section (without the section number)
-- level: 1 for main headings, 2 for subheadings, 1 for clauses
-- number: the section number or label, if present (e.g., '1', 'A', '1A')
-Respond ONLY with valid JSON. Do NOT include any explanation, markdown, code block, or text outside the JSON. Do NOT wrap your response in triple backticks or say "here is your JSON". Output ONLY the raw JSON array.
-Contract text:
-"""
-{contract_text}
-"""
-'''
-
-LLM_INSERT_PROMPT = '''
-You are a contract editor. Given the following contract text, and this instruction and clause, return the updated contract as a single string of the full contract text, with the clause inserted in the correct place.
-- Instruction: {instruction}
-- Clause: {clause}
-Respond ONLY with valid JSON in the following format:
-{{
-  "updated_contract": "Full contract text here, with all headings, clauses, and the new clause inserted in the correct place."
-}}
-IMPORTANT:
-- Escape all double quotes in the contract text with a backslash (\").
-- Do NOT include any explanation, markdown, code block, or text outside the JSON.
-- Do NOT wrap your response in triple backticks or say "here is your JSON".
-- Output ONLY the raw JSON object as shown above.
-- If you add any extra text, unescaped quotes, or incomplete JSON, the system will break.
-- Ensure the JSON is complete and valid.
-Contract text:
-"""
-{contract_text}
-"""
-'''
 
 LLM_INSERTION_PLAN_PROMPT = '''
 You are a contract clause placement assistant. Given a contract structure (as a list of sections), an instruction, and a clause, return a JSON object describing exactly where and how to insert the clause. Your response should be a single JSON object with these fields:

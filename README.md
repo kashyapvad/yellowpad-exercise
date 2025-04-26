@@ -1,25 +1,3 @@
-# Welcome to your Lovable project
-
-## Project info
-
-**URL**: https://lovable.dev/projects/3a08d8af-d04d-4daa-a99c-4653eecf8f4f
-
-## How can I edit this code?
-
-There are several ways of editing your application.
-
-**Use Lovable**
-
-Simply visit the [Lovable Project](https://lovable.dev/projects/3a08d8af-d04d-4daa-a99c-4653eecf8f4f) and start prompting.
-
-Changes made via Lovable will be committed automatically to this repo.
-
-**Use your preferred IDE**
-
-If you want to work locally using your own IDE, you can clone this repo and push changes. Pushed changes will also be reflected in Lovable.
-
-Follow these steps:
-
 ```sh
 # Step 1: Clone the repository using the project's Git URL.
 git clone <YOUR_GIT_URL>
@@ -114,32 +92,49 @@ cd contract-clause-placement-8a9215a2
 ```sh
 npm install
 ```
+
 #### Backend
+1. Ensure you have Python 3.9 or higher installed:
+   ```sh
+   python --version  # Should show Python 3.9.x or higher
+   ```
+
+2. Create and activate a virtual environment:
+   ```sh
+   # For Unix/macOS
+   python3 -m venv .venv
+   source .venv/bin/activate
+
+   # For Windows
+   python3 -m venv .venv
+   .venv\Scripts\activate
+   ```
+
+3. Install Python dependencies:
+   ```sh
+   pip install -r requirements.txt
+   ```
+
+4. Create a `.env` file in the `backend` directory with your OpenAI API key:
+   ```env
+   OPENAI_API_KEY=your-api-key-here
+   ```
+
+### 3. Running the Application
+
+#### Start the Backend Server
 ```sh
-cd backend
-python3 -m venv venv
-source venv/bin/activate
-pip install -r requirements.txt
-```
-
----
-
-## Running the App
-
-### 1. Start the Backend (Port 3000)
-```sh
+# Make sure you're in the project root directory
 uvicorn backend.app.main:app --host 0.0.0.0 --port 3000 --reload
 ```
-- The backend will be available at [http://localhost:3000](http://localhost:3000)
-- Endpoints:
-  - `/api/parse-contract-text` (parse contract)
-  - `/api/parse-instruction` (LLM-powered instruction parsing)
+The backend will be available at http://localhost:3000
 
-### 2. Start the Frontend
+#### Start the Frontend Development Server
 ```sh
+# In a new terminal, from the project root
 npm run dev
 ```
-- The frontend will be available at [http://localhost:5173](http://localhost:5173)
+The frontend will be available at http://localhost:8080
 
 ---
 
@@ -155,7 +150,27 @@ npm run dev
 ## LLM-Powered Instruction Parsing
 - The backend sends the contract structure, instruction, and clause to OpenAI's LLM.
 - The LLM returns a JSON object specifying exactly where and how to insert the clause (target, position, type, number, style, etc.).
+- **The response is a flat JSON object with named fields (e.g., `targetType`, `targetNumber`, `targetContent`, `position`, `childType`, `childNumber`, `content`, `contentPosition`, `style`).**
+- **Example:**
+  ```json
+  {
+    "targetType": "heading",
+    "targetNumber": "1",
+    "targetContent": "Definitions.",
+    "position": "after",
+    "childType": "heading",
+    "childNumber": "A",
+    "content": "...",
+    "contentPosition": null,
+    "style": { "headingLevel": 1 }
+  }
+  ```
 - The frontend uses this plan to update the contract structure and renumber siblings if necessary.
+
+---
+
+## Production Readiness
+- All debug logging has been removed from both frontend and backend for production deployment.
 
 ---
 
@@ -186,3 +201,40 @@ npm run dev
 
 ## License
 MIT
+
+# Contract Clause Placement
+
+A FastAPI application for managing contract clauses.
+
+## Prerequisites
+
+- Python 3.9
+- pip (Python package manager)
+
+## Setup
+
+If you prefer to set up manually:
+
+1. Create a virtual environment:
+   ```bash
+   python3.9 -m venv .venv
+   ```
+
+2. Activate the virtual environment:
+   ```bash
+   source .venv/bin/activate  # On Unix/macOS
+   # or
+   .venv\Scripts\activate  # On Windows
+   ```
+
+3. Install dependencies:
+   ```bash
+   pip install -r requirements.txt
+   ```
+
+4. Run the application:
+   ```bash
+   python -m uvicorn backend.app.main:app --reload
+   ```
+
+The application will be available at http://127.0.0.1:8000
