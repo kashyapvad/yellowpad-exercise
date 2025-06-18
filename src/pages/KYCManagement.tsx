@@ -83,8 +83,11 @@ const KYCManagement = () => {
                 </Button>
               </div>
             </div>
+          </div>
 
-            {/* Compact Status Card */}
+          {/* Right Side - Verification Details */}
+          <div className="space-y-4">
+            {/* KYC Verified Status - Now at the top */}
             <div className="bg-gradient-to-r from-green-500 to-green-600 rounded-xl shadow-sm text-white p-4">
               <div className="flex items-center gap-3">
                 <div className="flex items-center justify-center w-10 h-10 bg-white/20 rounded-full">
@@ -96,10 +99,7 @@ const KYCManagement = () => {
                 </div>
               </div>
             </div>
-          </div>
 
-          {/* Right Side - Verification Details */}
-          <div className="space-y-4">
             {/* Verification Status */}
             <div className="bg-white rounded-xl shadow-sm border border-gray-100">
               <div className="p-4 border-b border-gray-50">
@@ -132,20 +132,6 @@ const KYCManagement = () => {
               </div>
             </div>
 
-            {/* Last Verified */}
-            <div className="bg-gradient-to-r from-blue-500 to-blue-600 rounded-xl shadow-sm text-white p-4">
-              <div className="grid grid-cols-2 gap-4">
-                <div>
-                  <p className="text-blue-100 text-xs font-medium">LAST VERIFIED</p>
-                  <p className="text-lg font-medium">19 Jun 2025</p>
-                </div>
-                <div>
-                  <p className="text-blue-100 text-xs font-medium">VERIFIED BY</p>
-                  <p className="text-lg font-medium">mifos</p>
-                </div>
-              </div>
-            </div>
-
             {/* Verification Actions */}
             <div className="bg-white rounded-xl shadow-sm border border-gray-100">
               <div className="p-4 border-b border-gray-50">
@@ -169,6 +155,20 @@ const KYCManagement = () => {
                     <Calendar className="h-3 w-3" />
                     API Verification
                   </Button>
+                </div>
+              </div>
+            </div>
+
+            {/* Last Verified - Now at the bottom */}
+            <div className="bg-gradient-to-r from-blue-500 to-blue-600 rounded-xl shadow-sm text-white p-4">
+              <div className="grid grid-cols-2 gap-4">
+                <div>
+                  <p className="text-blue-100 text-xs font-medium">LAST VERIFIED</p>
+                  <p className="text-lg font-medium">19 Jun 2025</p>
+                </div>
+                <div>
+                  <p className="text-blue-100 text-xs font-medium">VERIFIED BY</p>
+                  <p className="text-lg font-medium">mifos</p>
                 </div>
               </div>
             </div>
