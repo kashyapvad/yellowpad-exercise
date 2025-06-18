@@ -1,9 +1,11 @@
 import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
+import { Link } from 'react-router-dom';
 import { setError } from '@/store/slices/contractSlice';
 import { Button } from '@/components/atoms/button';
 import { Document, Packer, Paragraph, HeadingLevel, TextRun } from 'docx';
 import { parseContractText, parseInstruction } from '@/services/api';
+import { Shield, BarChart3, FileText } from 'lucide-react';
 
 interface ParsedSection {
   id: string;
@@ -276,6 +278,25 @@ const Index = () => {
   return (
     <div className="min-h-screen bg-gray-50 py-8">
       <div className="container mx-auto px-4">
+        {/* Navigation to new pages */}
+        <div className="mb-8 p-6 bg-white rounded-lg shadow-sm border border-gray-200">
+          <h2 className="text-lg font-medium text-gray-900 mb-4">Sample Pages</h2>
+          <div className="flex flex-wrap gap-4">
+            <Link to="/kyc">
+              <Button variant="outline" className="flex items-center gap-2">
+                <Shield className="h-4 w-4" />
+                KYC Management
+              </Button>
+            </Link>
+            <Link to="/credit-report">
+              <Button variant="outline" className="flex items-center gap-2">
+                <BarChart3 className="h-4 w-4" />
+                Credit Report
+              </Button>
+            </Link>
+          </div>
+        </div>
+
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
           <div>
             <h2 className="text-xl font-semibold mb-4">Paste Contract Text</h2>
